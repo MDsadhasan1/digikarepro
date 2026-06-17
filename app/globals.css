@@ -1,0 +1,244 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Google Fonts ─────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ─── CSS Custom Properties (Light Mode) ───────────────────────────────────── */
+@layer base {
+  :root {
+    /* shadcn/ui semantic tokens → mapped to our brand palette */
+    --background:        0 0% 100%;
+    --foreground:        215 28% 9%;        /* slate-900 */
+
+    --card:              0 0% 100%;
+    --card-foreground:   215 28% 9%;
+
+    --popover:           0 0% 100%;
+    --popover-foreground:215 28% 9%;
+
+    --primary:           221 83% 53%;       /* brand-600 #2563EB */
+    --primary-foreground:0 0% 100%;
+
+    --secondary:         173 80% 40%;       /* teal-500 #14B8A6 */
+    --secondary-foreground:0 0% 100%;
+
+    --muted:             214 32% 91%;       /* slate-200 */
+    --muted-foreground:  215 16% 47%;       /* slate-500 */
+
+    --accent:            24 95% 53%;        /* orange-500 #F97316 */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive:       0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border:            214 32% 91%;       /* slate-200 */
+    --input:             214 32% 91%;
+    --ring:              221 83% 53%;       /* brand-600 */
+
+    /* Chart colors */
+    --chart-1: 221 83% 53%;
+    --chart-2: 173 80% 40%;
+    --chart-3: 24 95% 53%;
+    --chart-4: 262 83% 58%;
+    --chart-5: 142 76% 36%;
+
+    /* Custom brand tokens */
+    --brand-50:  220 100% 97%;
+    --brand-100: 221 100% 93%;
+    --brand-600: 221 83% 53%;
+    --brand-800: 224 71% 32%;
+
+    /* Sidebar / admin */
+    --sidebar-bg:        224 71% 12%;       /* dark navy */
+    --sidebar-border:    224 30% 20%;
+    --sidebar-text:      215 20% 65%;
+    --sidebar-text-active: 0 0% 100%;
+    --sidebar-accent:    221 83% 53%;
+
+    /* Layout */
+    --header-height: 4rem;
+    --radius: 0.5rem;
+  }
+
+  /* ─── Dark Mode ──────────────────────────────────────────────────────────── */
+  .dark {
+    --background:        215 28% 9%;        /* slate-900 */
+    --foreground:        210 40% 98%;       /* slate-50 */
+
+    --card:              215 25% 12%;       /* slightly lighter than bg */
+    --card-foreground:   210 40% 98%;
+
+    --popover:           215 25% 12%;
+    --popover-foreground:210 40% 98%;
+
+    --primary:           221 83% 60%;       /* slightly lighter in dark */
+    --primary-foreground:0 0% 100%;
+
+    --secondary:         173 70% 45%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted:             215 25% 18%;
+    --muted-foreground:  215 16% 55%;
+
+    --accent:            24 95% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive:       0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border:            215 25% 18%;
+    --input:             215 25% 18%;
+    --ring:              221 83% 60%;
+
+    --chart-1: 221 83% 60%;
+    --chart-2: 173 70% 50%;
+    --chart-3: 24 95% 55%;
+    --chart-4: 262 83% 65%;
+    --chart-5: 142 76% 45%;
+  }
+}
+
+/* ─── Base Resets ───────────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Remove default list styles */
+  ul, ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Better image defaults */
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Focus ring */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+
+  /* Selection */
+  ::selection {
+    @apply bg-brand-600/20 text-brand-800;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/30 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+}
+
+/* ─── Component Utilities ───────────────────────────────────────────────────── */
+@layer components {
+  /* Skeleton loading shimmer */
+  .skeleton {
+    @apply animate-pulse bg-muted rounded-md;
+  }
+
+  /* Product card hover lift */
+  .card-hover {
+    @apply transition-all duration-300 ease-smooth hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-brand bg-clip-text text-transparent;
+  }
+
+  /* Section container */
+  .section {
+    @apply py-16 lg:py-24;
+  }
+
+  /* Badge pill */
+  .badge-pill {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  /* Price text */
+  .price {
+    @apply font-bold text-slate-900 dark:text-slate-50;
+  }
+  .price-sale {
+    @apply text-accent font-bold;
+  }
+  .price-original {
+    @apply text-muted-foreground line-through text-sm font-normal;
+  }
+
+  /* Floating action button */
+  .fab {
+    @apply fixed z-fab flex items-center justify-center rounded-full shadow-xl
+           transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer;
+  }
+
+  /* Glass effect */
+  .glass {
+    @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-white/20 dark:border-slate-700/50;
+  }
+
+  /* Admin sidebar item */
+  .sidebar-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium
+           transition-all duration-200 cursor-pointer;
+  }
+  .sidebar-item-active {
+    @apply bg-brand-600 text-white shadow-brand-sm;
+  }
+  .sidebar-item-inactive {
+    @apply text-slate-400 hover:bg-white/10 hover:text-white;
+  }
+}
+
+/* ─── Utility Overrides ─────────────────────────────────────────────────────── */
+@layer utilities {
+  /* Hide scrollbar but keep scroll */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Text balance */
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+
+  /* Aspect ratios */
+  .aspect-product { aspect-ratio: 3 / 4; }
+  .aspect-banner  { aspect-ratio: 16 / 6; }
+
+  /* Line clamp */
+  .line-clamp-1 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
+  .line-clamp-2 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .line-clamp-3 { overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+
+  /* Safe area padding for mobile */
+  .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+  .pt-safe { padding-top: env(safe-area-inset-top); }
+}
